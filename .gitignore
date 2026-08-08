@@ -24,3 +24,8 @@ yarn-error.log*
 Thumbs.db
 *.swp
 *.bak
+
+# Temporary vite cache
+frontend/.vite/
+.vite/
+
