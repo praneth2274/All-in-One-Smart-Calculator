@@ -1,0 +1,15 @@
+{
+  "short_name": "CalcHub AI",
+  "name": "CalcHub AI - All-in-One Smart Calculator Suite",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": ".",
+  "background_color": "#0B0F17",
+  "theme_color": "#3B82F6",
+  "display": "standalone"
+}
