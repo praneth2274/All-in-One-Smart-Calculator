@@ -12,12 +12,8 @@ API.interceptors.request.use((config) => {
   const token = localStorage.getItem('calchub_token');
   const geminiKey = localStorage.getItem('calchub_gemini_key');
   if (config.headers) {
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
-    if (geminiKey) {
-      config.headers['x-gemini-api-key'] = geminiKey;
-    }
+    if (token) config.headers.Authorization = `Bearer ${token}`;
+    if (geminiKey) config.headers['x-gemini-api-key'] = geminiKey;
   }
   return config;
 });

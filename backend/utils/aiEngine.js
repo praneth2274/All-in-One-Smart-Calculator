@@ -8,32 +8,35 @@ const generateAIResponse = async (prompt, type = 'chat', context = {}) => {
   const apiKey = context.apiKey || process.env.GEMINI_API_KEY;
 
   if (apiKey && apiKey !== 'your_gemini_api_key_here' && apiKey.trim() !== '') {
-    try {
-      const response = await axios.post(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-        {
-          contents: [
-            {
-              role: 'user',
-              parts: [
-                {
-                  text: `You are CalcHub AI, an expert mathematical, financial, student, health, and scientific calculator assistant.
+    const modelsToTry = ['gemini-3.5-flash', 'gemini-3.6-flash', 'gemini-flash-latest'];
+    for (const model of modelsToTry) {
+      try {
+        const response = await axios.post(
+          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+          {
+            contents: [
+              {
+                role: 'user',
+                parts: [
+                  {
+                    text: `You are CalcHub AI, an expert mathematical, financial, student, health, and scientific calculator assistant.
 Context: ${JSON.stringify(context)}
 Task Type: ${type}
 Query: ${prompt}
 Provide clear, accurate, step-by-step formatted responses with formulas, mathematical breakdown, and actionable insights. Use Markdown.`,
-                },
-              ],
-            },
-          ],
-        },
-        { headers: { 'Content-Type': 'application/json' }, timeout: 10000 }
-      );
+                  },
+                ],
+              },
+            ],
+          },
+          { headers: { 'Content-Type': 'application/json' }, timeout: 10000 }
+        );
 
-      const candidate = response.data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (candidate) return candidate;
-    } catch (err) {
-      console.warn('[AI Engine] Gemini API call failed or timed out. Falling back to local smart engine.', err.message);
+        const candidate = response.data?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (candidate) return candidate;
+      } catch (err) {
+        console.warn(`[AI Engine] Gemini API call with model ${model} failed (${err.message}). Trying next...`);
+      }
     }
   }
 

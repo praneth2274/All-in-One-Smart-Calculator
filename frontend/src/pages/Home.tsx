@@ -39,9 +39,9 @@ export const Home: React.FC = () => {
         <div className="absolute bottom-0 left-0 -mb-12 -ml-12 w-96 h-96 bg-accent-500/20 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="relative max-w-3xl space-y-6">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold text-accent-300">
-            <Sparkles className="w-4 h-4 text-amber-300 animate-pulse" />
-            <span>B.Tech IT Major Project Standard Platform</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/20 backdrop-blur-md border border-emerald-400/30 text-xs font-bold text-emerald-300">
+            <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+            <span>100% Free - No Login Required • 50+ Calculators Suite</span>
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-black tracking-tight leading-tight">
@@ -52,7 +52,7 @@ export const Home: React.FC = () => {
           </h1>
 
           <p className="text-base sm:text-lg text-gray-300 leading-relaxed">
-            Access over <strong>40+ interactive calculators</strong> across Finance, Science, Engineering, Health, Student Grade Tracking, Unit Conversions, and Daily Life — all with AI step-by-step guidance.
+            Access over <strong>50+ interactive calculators</strong> across Finance, Basic Math, Student Grade Tracking, Health, Unit Conversions, Daily Life, and Utilities — completely free with instant AI step-by-step guidance!
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -60,7 +60,7 @@ export const Home: React.FC = () => {
               to="/calculators"
               className="px-6 py-3.5 rounded-2xl bg-gradient-to-r from-brand-500 to-accent-500 hover:from-brand-400 hover:to-accent-400 font-extrabold text-white text-sm shadow-xl shadow-brand-500/30 flex items-center gap-2 group transition-all"
             >
-              Explore 40+ Calculators
+              Explore All 50+ Calculators
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </Link>
 

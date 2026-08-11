@@ -52,10 +52,12 @@ export const App: React.FC = () => {
                     <Route path="/login" element={<LoginPage />} />
                     <Route path="/register" element={<RegisterPage />} />
 
-                    {/* Protected Routes */}
-                    <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-                    <Route path="/favorites" element={<ProtectedRoute><FavoritesPage /></ProtectedRoute>} />
-                    <Route path="/history" element={<ProtectedRoute><HistoryPage /></ProtectedRoute>} />
+                    {/* Publicly Accessible Tool & User Suite Routes */}
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/favorites" element={<FavoritesPage />} />
+                    <Route path="/history" element={<HistoryPage />} />
+
+                    {/* Account Settings & Admin Routes */}
                     <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
                     <Route path="/settings" element={<ProtectedRoute><SettingsPage /></ProtectedRoute>} />
 

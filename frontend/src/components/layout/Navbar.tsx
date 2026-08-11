@@ -14,16 +14,13 @@ import {
   Shield,
   Menu,
   X,
-  Sparkles,
-  Key
+  Sparkles
 } from 'lucide-react';
 import { SearchModal } from '../common/SearchModal';
-import { ApiKeyModal } from '../common/ApiKeyModal';
 
 export const Navbar: React.FC = () => {
   const { user, isAuthenticated, isAdmin, logout } = useAuth();
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isApiKeyOpen, setIsApiKeyOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -65,88 +62,79 @@ export const Navbar: React.FC = () => {
               <span>AI Assistant</span>
             </Link>
 
-            <button
-              onClick={() => setIsApiKeyOpen(true)}
-              className="p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              title="Connect Gemini API Key"
-            >
-              <Key className="w-5 h-5 text-amber-500" />
-            </button>
-
             <ThemeToggle />
 
-            {isAuthenticated ? (
-              <div className="flex items-center gap-2 pl-2 border-l border-gray-200 dark:border-gray-800">
-                <Link
-                  to="/dashboard"
-                  className="p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                  title="Dashboard"
-                >
-                  <LayoutDashboard className="w-5 h-5" />
-                </Link>
+            <div className="flex items-center gap-1 border-l border-gray-200 dark:border-gray-800 pl-2">
+              <Link
+                to="/dashboard"
+                className="p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                title="Dashboard"
+              >
+                <LayoutDashboard className="w-5 h-5" />
+              </Link>
 
-                <Link
-                  to="/favorites"
-                  className="p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                  title="Favorites"
-                >
-                  <Heart className="w-5 h-5" />
-                </Link>
+              <Link
+                to="/favorites"
+                className="p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                title="Favorites"
+              >
+                <Heart className="w-5 h-5" />
+              </Link>
 
-                <Link
-                  to="/history"
-                  className="p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                  title="History"
-                >
-                  <History className="w-5 h-5" />
-                </Link>
+              <Link
+                to="/history"
+                className="p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                title="History"
+              >
+                <History className="w-5 h-5" />
+              </Link>
 
-                {isAdmin && (
+              {isAuthenticated ? (
+                <div className="flex items-center gap-2 pl-2 border-l border-gray-200 dark:border-gray-800">
+                  {isAdmin && (
+                    <Link
+                      to="/admin"
+                      className="p-2 rounded-xl text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/40 transition-colors"
+                      title="Admin Panel"
+                    >
+                      <Shield className="w-5 h-5" />
+                    </Link>
+                  )}
+
                   <Link
-                    to="/admin"
-                    className="p-2 rounded-xl text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/40 transition-colors"
-                    title="Admin Panel"
+                    to="/profile"
+                    className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                   >
-                    <Shield className="w-5 h-5" />
+                    <img
+                      src={user?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'}
+                      alt={user?.name}
+                      className="w-7 h-7 rounded-full object-cover border border-brand-500"
+                    />
+                    <span className="text-xs font-medium max-w-[100px] truncate">{user?.name}</span>
                   </Link>
-                )}
 
-                <Link
-                  to="/profile"
-                  className="flex items-center gap-2 p-1.5 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                >
-                  <img
-                    src={user?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150'}
-                    alt={user?.name}
-                    className="w-7 h-7 rounded-full object-cover border border-brand-500"
-                  />
-                  <span className="text-xs font-medium max-w-[100px] truncate">{user?.name}</span>
-                </Link>
-
-                <button
-                  onClick={() => { logout(); navigate('/login'); }}
-                  className="p-2 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
-                  title="Logout"
-                >
-                  <LogOut className="w-5 h-5" />
-                </button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-2 pl-2">
-                <Link
-                  to="/login"
-                  className="px-4 py-2 rounded-xl text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-                >
-                  Log in
-                </Link>
-                <Link
-                  to="/register"
-                  className="px-4 py-2 rounded-xl text-sm font-semibold text-white bg-gradient-to-r from-brand-600 to-indigo-600 hover:from-brand-500 hover:to-indigo-500 shadow-md shadow-brand-500/20 transition-all"
-                >
-                  Get Started
-                </Link>
-              </div>
-            )}
+                  <button
+                    onClick={() => { logout(); navigate('/login'); }}
+                    className="p-2 rounded-xl text-red-500 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors"
+                    title="Logout"
+                  >
+                    <LogOut className="w-5 h-5" />
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 pl-2 border-l border-gray-200 dark:border-gray-800">
+                  <span className="hidden lg:inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-extrabold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+                    Free Guest Mode
+                  </span>
+                  <Link
+                    to="/login"
+                    className="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                  >
+                    Log in
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
 
           {/* Mobile menu trigger */}
@@ -191,13 +179,6 @@ export const Navbar: React.FC = () => {
             >
               AI Assistant
             </Link>
-            <button
-              onClick={() => { setIsApiKeyOpen(true); setIsMobileMenuOpen(false); }}
-              className="w-full text-left px-3 py-2 rounded-lg text-base font-medium text-amber-500 hover:bg-gray-100 dark:hover:bg-gray-800 flex items-center gap-2"
-            >
-              <Key className="w-4 h-4" />
-              <span>Connect Gemini API Key</span>
-            </button>
 
             {isAuthenticated ? (
               <>
@@ -258,9 +239,8 @@ export const Navbar: React.FC = () => {
         )}
       </header>
 
-      {/* Global Search Modal & API Key Modal */}
+      {/* Global Search Modal */}
       <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
-      <ApiKeyModal isOpen={isApiKeyOpen} onClose={() => setIsApiKeyOpen(false)} />
     </>
   );
 };

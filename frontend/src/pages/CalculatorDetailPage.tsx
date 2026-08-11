@@ -4,7 +4,7 @@ import { PageHeader } from '../components/layout/PageHeader';
 import { fetchCalculatorBySlug } from '../services/calculatorService';
 import { Calculator } from '../types';
 import { useCalculatorContext } from '../context/CalculatorContext';
-import { Heart, ArrowLeft, Sparkles, Shield, Share2 } from 'lucide-react';
+import { Heart, ArrowLeft } from 'lucide-react';
 
 // Calculator Views Imports
 import {
@@ -17,19 +17,34 @@ import {
 
 import {
   EMICalculatorView,
+  LoanEligibilityView,
   SIPCalculatorView,
+  FDCalculatorView,
+  RDCalculatorView,
+  SimpleInterestView,
+  CompoundInterestView,
   GSTCalculatorView,
+  IncomeTaxView,
+  DiscountCalculatorView,
+  ProfitLossView,
+  SalaryCalculatorView,
   CurrencyConverterView,
 } from '../components/calculators/FinanceCalculators';
 
 import {
   GPACalculatorView,
+  CGPACalculatorView,
   AttendanceCalculatorView,
+  MarksCalculatorView,
+  GradeCalculatorView,
+  StudyTimeCalculatorView,
 } from '../components/calculators/StudentCalculators';
 
 import {
   BMICalculatorView,
   CalorieCalculatorView,
+  WaterIntakeCalculatorView,
+  BodyFatCalculatorView,
 } from '../components/calculators/HealthCalculators';
 
 import {
@@ -38,12 +53,18 @@ import {
 
 import {
   AgeCalculatorView,
+  DateDifferenceView,
+  FuelCostView,
+  ElectricityBillView,
+  WaterBillView,
   SplitBillCalculatorView,
 } from '../components/calculators/DailyLifeCalculators';
 
 import {
   PasswordGeneratorView,
   QRCodeGeneratorView,
+  QRScannerView,
+  RandomNumberGeneratorView,
 } from '../components/calculators/UtilityCalculators';
 
 export const CalculatorDetailPage: React.FC = () => {
@@ -84,28 +105,72 @@ export const CalculatorDetailPage: React.FC = () => {
 
   const fav = isFavorite(calc.slug);
 
-  // Render proper calculator component view
+  // Render proper calculator component view for all 50 calculators
   const renderCalculatorComponent = () => {
     switch (calc.slug) {
+      // Basic (5)
       case 'basic-calculator': return <BasicCalculatorView />;
       case 'scientific-calculator': return <ScientificCalculatorView />;
       case 'percentage-calculator': return <PercentageCalculatorView />;
       case 'average-calculator': return <AverageCalculatorView />;
       case 'ratio-calculator': return <RatioCalculatorView />;
-      case 'emi-calculator': case 'loan-calculator': return <EMICalculatorView />;
-      case 'sip-calculator': case 'fd-calculator': case 'rd-calculator': return <SIPCalculatorView />;
+
+      // Finance (13)
+      case 'emi-calculator': return <EMICalculatorView />;
+      case 'loan-calculator': return <LoanEligibilityView />;
+      case 'sip-calculator': return <SIPCalculatorView />;
+      case 'fd-calculator': return <FDCalculatorView />;
+      case 'rd-calculator': return <RDCalculatorView />;
+      case 'simple-interest': return <SimpleInterestView />;
+      case 'compound-interest': return <CompoundInterestView />;
       case 'gst-calculator': return <GSTCalculatorView />;
+      case 'income-tax-calculator': return <IncomeTaxView />;
+      case 'discount-calculator': return <DiscountCalculatorView />;
+      case 'profit-loss-calculator': return <ProfitLossView />;
+      case 'salary-calculator': return <SalaryCalculatorView />;
       case 'currency-converter': return <CurrencyConverterView />;
-      case 'gpa-calculator': case 'cgpa-calculator': return <GPACalculatorView />;
+
+      // Student (6)
+      case 'gpa-calculator': return <GPACalculatorView />;
+      case 'cgpa-calculator': return <CGPACalculatorView />;
       case 'attendance-calculator': return <AttendanceCalculatorView />;
+      case 'marks-calculator': return <MarksCalculatorView />;
+      case 'grade-calculator': return <GradeCalculatorView />;
+      case 'study-time-calculator': return <StudyTimeCalculatorView />;
+
+      // Health (5)
       case 'bmi-calculator': return <BMICalculatorView />;
-      case 'calorie-calculator': case 'bmr-calculator': return <CalorieCalculatorView />;
-      case 'length-converter': case 'data-storage-converter': case 'weight-converter': return <UnitConverterView type={calc.slug.includes('data') ? 'data' : 'length'} />;
-      case 'age-calculator': case 'date-difference-calculator': return <AgeCalculatorView />;
+      case 'bmr-calculator': case 'calorie-calculator': return <CalorieCalculatorView />;
+      case 'water-intake-calculator': return <WaterIntakeCalculatorView />;
+      case 'body-fat-calculator': return <BodyFatCalculatorView />;
+
+      // Unit Conversion (10)
+      case 'length-converter': return <UnitConverterView type="length" />;
+      case 'weight-converter': return <UnitConverterView type="weight" />;
+      case 'temperature-converter': return <UnitConverterView type="temperature" />;
+      case 'area-converter': return <UnitConverterView type="area" />;
+      case 'volume-converter': return <UnitConverterView type="volume" />;
+      case 'speed-converter': return <UnitConverterView type="speed" />;
+      case 'pressure-converter': return <UnitConverterView type="pressure" />;
+      case 'time-converter': return <UnitConverterView type="time" />;
+      case 'energy-converter': return <UnitConverterView type="energy" />;
+      case 'data-storage-converter': return <UnitConverterView type="data" />;
+
+      // Daily Life (7)
+      case 'age-calculator': return <AgeCalculatorView />;
+      case 'date-difference-calculator': return <DateDifferenceView />;
+      case 'fuel-cost-calculator': return <FuelCostView />;
+      case 'electricity-bill-calculator': return <ElectricityBillView />;
+      case 'water-bill-calculator': return <WaterBillView />;
       case 'split-bill-calculator': case 'tip-calculator': return <SplitBillCalculatorView />;
+
+      // Utility (4)
       case 'password-generator': return <PasswordGeneratorView />;
-      case 'qr-code-generator': case 'qr-scanner': return <QRCodeGeneratorView />;
-      default: return <EMICalculatorView />;
+      case 'qr-code-generator': return <QRCodeGeneratorView />;
+      case 'qr-scanner': return <QRScannerView />;
+      case 'random-number-generator': return <RandomNumberGeneratorView />;
+
+      default: return <BasicCalculatorView />;
     }
   };
 
